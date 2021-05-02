@@ -134,4 +134,16 @@ router.post('/api/convert',jwtAuth, function(req, res, next) {
   }
   })
 })
+router.post('/api/delete',jwtAuth, function(req, res, next) {
+  rateModel.remove({_id:req.body.id}).exec(function(err,data){
+    if(err){
+      console.log(err)
+      res.status(200).json({error:"Something went wrong!"})
+    }
+    else{
+    res.status(200).json({error:"",msg:"Deleted"})
+   }
+  })
+})
+
 module.exports = router;

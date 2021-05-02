@@ -15,7 +15,8 @@ export default class Exchange extends Component {
         this.state={
             fromCurrency:'INR',
             toCurrency:'USD',
-            result:''
+            result:'',
+            toCurrencyClick:''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,6 +45,7 @@ export default class Exchange extends Component {
                 if(response.data.data.length!=0){
                     this.setState({error:""})
                     this.setState({result:response.data.data[0].rate})
+                    this.setState({toCurrencyClick:this.state.toCurrency})
                 }
                 else{
                     this.setState({result:''})
@@ -89,7 +91,7 @@ export default class Exchange extends Component {
                                                 </select>
                                             </div>
                                             {this.state.result!=""?
-                                            <div id="result" style={{textAlign:"center",marginTop:"20px",color:"green"}}><strong>{this.state.result} {this.state.toCurrency}</strong></div>
+                                            <div id="result" style={{textAlign:"center",marginTop:"20px",color:"green"}}><strong>{this.state.result} {this.state.toCurrencyClick}</strong></div>
                                             :
                                             <></>
                                             }      

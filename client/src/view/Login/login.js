@@ -35,7 +35,7 @@ export default class Login extends Component {
             else{
                 console.log(response)
                 setCookie("token",response.data.token)
-                window.location.reload()
+                window.location.href="/"
             }
             })
       }

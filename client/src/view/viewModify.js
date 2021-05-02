@@ -89,6 +89,48 @@ export default class Exchange extends Component {
             }
             })
       }
+
+      deleteRate(id){
+        axios.post("/api/delete",{id:id},{
+            headers: {
+              token: getcookie("token")
+            }}).then((response) => {
+            console.log(response)
+            if(response.data.error!=""){
+                this.setState({error:response.data.error})
+                if(response.data.error==="Authentication Failed"){
+                    cookies.remove("token")
+                    window.location.href="/"
+                }
+            }
+            else{
+                console.log(response)
+                this.setState({editRate:''})
+                this.setState({editId:''})
+                axios.post("/api/get/data",{from:this.state.from, to:this.state.to},{
+                    headers: {
+                      token: getcookie("token")
+                    }}).then((response) => {
+                    console.log(response)
+                    if(response.data.error!=""){
+                        this.setState({error:response.data.error})
+                        if(response.data.error==="Authentication Failed"){
+                            cookies.remove("token")
+                            window.location.href="/"
+                        }
+                    }
+                    else{
+                        console.log(response.data.data)
+                        this.setState({data:response.data.data})
+                        this.setState({show:false})
+                    }
+                    })
+                
+
+            }
+            })
+      }
+
       handleFromChange(event) {
         this.setState({from: event.target.value});
         axios.post("/api/get/data",{from:event.target.value, to:this.state.to},{
@@ -306,6 +348,7 @@ export default class Exchange extends Component {
                             <th scope="col">Date</th>
                             <th scope="col">Rate</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -313,7 +356,8 @@ export default class Exchange extends Component {
                             <tr>
                             <th scope="row">{`${new Date(item.date).getDate()}/${parseInt(new Date(item.date).getMonth())+1}/${new Date(item.date).getFullYear()}`}</th>
                             <td>{item.rate}</td>
-                            <td><div style={{cursor:"pointer", textDecoration:"underline"}} onClick={()=>this.editRate(item._id,item.rate)}>Edit</div></td>
+                            <td><div style={{cursor:"pointer", textDecoration:"underline",color:"blue"}} onClick={()=>this.editRate(item._id,item.rate)}>Edit</div></td>
+                            <td><div style={{cursor:"pointer", textDecoration:"underline",color:"red"}} onClick={()=>this.deleteRate(item._id)}>Delete</div></td>
                             </tr>
                             ))}
                         </tbody>
