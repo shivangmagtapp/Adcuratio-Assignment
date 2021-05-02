@@ -121,10 +121,11 @@ router.post('/api/edit',jwtAuth, function(req, res, next) {
 })
 
 router.post('/api/convert',jwtAuth, function(req, res, next) {
+  console.log("bhjb")
   var year = new Date().getFullYear()
   var month = new Date().getMonth()
   var date = new Date().getDate()
-  rateModel.find({from:req.body.from,to:req.body.to,date:{$gte: new Date(year,month,date-1)}}).exec(function(err,data){
+  rateModel.find({from:req.body.from,to:req.body.to,date:{$gte: new Date(year,month,date)}}).exec(function(err,data){
   console.log(data)
   if(err){
     console.log(err)
