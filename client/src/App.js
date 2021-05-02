@@ -6,6 +6,7 @@ import Login from "./view/Login/login"
 import Register from "./view/Register/register"
 import ExchangeRates from "./view/exchangeRates"
 import ViewModify from "./view/viewModify"
+import showTrends from "./view/showTrends"
 import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
@@ -27,7 +28,7 @@ function App() {
       <Route exact path='/' component={ExchangeRates} />
       <Route path='/convert' component={ExchangeRates} />
       <Route path='/view' component={ViewModify} />
-      <Route path='/show-trends' component={ExchangeRates} />
+      <Route path='/show-trends' component={showTrends} />
     </Switch>
     </Router>
     </>

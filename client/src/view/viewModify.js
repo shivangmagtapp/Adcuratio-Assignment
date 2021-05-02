@@ -342,7 +342,7 @@ export default class Exchange extends Component {
                 </div>
                 <div className="row">
                     <div className="col">
-                    <table class="table">
+                    <table class="table table-sm responsive">
                         <thead>
                             <tr>
                             <th scope="col">Date</th>
@@ -368,7 +368,7 @@ export default class Exchange extends Component {
                 </div>
                 </div>
             </div>
-            
+            <br/><br/>
         </div>
         );
     }

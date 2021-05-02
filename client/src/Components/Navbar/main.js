@@ -1,5 +1,19 @@
 import {Navbar,Nav,NavDropdown} from "react-bootstrap"
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+function getcookie(string){
+  return(cookies.get(string));
+}
+function setCookie(key,value){
+  cookies.set(key,value,{maxAge:259200})
+}
+function logout(){
+  cookies.remove("token")
+  window.location.href="/"
+}
 function NavbarComponent() {
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand href="/">Adcuratio</Navbar.Brand>
@@ -11,7 +25,7 @@ function NavbarComponent() {
             <Nav.Link href="/show-trends">Show Trends</Nav.Link>
             </Nav>
             <Nav>
-            <Nav.Link href="#">Logout</Nav.Link>
+            <Nav.Link href="#" onClick={()=>logout()}>Logout</Nav.Link>
             </Nav>
         </Navbar.Collapse>
     </Navbar>

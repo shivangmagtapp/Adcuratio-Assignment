@@ -146,4 +146,29 @@ router.post('/api/delete',jwtAuth, function(req, res, next) {
   })
 })
 
+router.post('/api/showTrends',jwtAuth, function(req, res, next) {
+  var year = new Date().getFullYear()
+  var month = new Date().getMonth()
+  var date = new Date().getDate()
+  console.log(req.body)
+  var datax = []
+  var datay = []
+  rateModel.find({from:req.body.from,to:req.body.to,date:{$gte: new Date(year,month,date-10)}}).exec(function(err,data){
+  console.log(data)
+  if(err){
+    console.log(err)
+  }
+  else{
+    data.map(data => {
+      var date = `${new Date(data.date).getDate()}/${parseInt(new Date(data.date).getMonth())+1}/${new Date(data.date).getFullYear()}`
+      datax.push(date);
+  })
+  data.map(data => {
+      datay.push(data.rate);
+  })
+  res.status(200).json({error:"",datax,datay})
+  }
+  })
+})
+
 module.exports = router;
