@@ -125,6 +125,7 @@ router.post('/api/convert',jwtAuth, function(req, res, next) {
   var year = new Date().getFullYear()
   var month = new Date().getMonth()
   var date = new Date().getDate()
+  console.log(date)
   rateModel.find({from:req.body.from,to:req.body.to,date:{$gte: new Date(year,month,date)}}).exec(function(err,data){
   console.log(data)
   if(err){
